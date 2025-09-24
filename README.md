@@ -31,7 +31,7 @@
 - Black and White
 - Invert Image
 - Merge Images
-- Flip Image
+- Flip Image colors
 - Rotate Image
 
 
