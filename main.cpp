@@ -4,7 +4,36 @@
 
 using namespace std;
 
+void convertToBlackAndWhite(Image &image, int threshold = 128) {
+    for (int i = 0; i < image.width; ++i) {
+        for (int j = 0; j < image.height; ++j) {
+            unsigned int avg = 0;
 
+            for (int k = 0; k < 3; ++k) {
+                avg += image(i, j, k);
+            }
+            avg /= 3;
+
+            unsigned int bw = (avg > threshold) ? 255 : 0;
+
+            image(i, j, 0) = bw;
+            image(i, j, 1) = bw;
+            image(i, j, 2) = bw;
+        }
+    }
+      cout<<"if you wanna save enter 1 else 0: ";
+    int save;
+    cin>>save;
+    if (save==1){
+        string s;
+        cout<<"enter the name of the new image with its extension: ";
+        cin>>s;
+      image.saveImage(s);
+    }
+    else{
+        cout<<"image not saved\n";
+    }
+}
 
 
 
@@ -106,6 +135,7 @@ int main() {
      
       cout << "1. Flip image colors\n";
       cout << "2. Rotate image\n";
+      cout << "3. BlackAndWhite\n";
       cout << "3. Exit\n";
       cout << "Your choice: ";
       cin >> choice;
@@ -160,8 +190,23 @@ int main() {
             }
             break;
         }
+    case 3:
+        {
+            string filename;
+            cout << "Enter image filename: ";
+            cin >> filename;
 
-        case 3:
+            Image img(filename);
+            if (img.imageData) {
+                convertToBlackAndWhite(img);
+                cout << "Image converted to black and white successfully!\n";
+            } else {
+                cout << "Failed to load image.\n";
+            }
+            break;
+        }
+            return 0;
+        case 7:
             cout << "Exiting program.\n";
             return 0;
             
