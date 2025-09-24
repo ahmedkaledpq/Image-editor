@@ -25,12 +25,6 @@
 
 ---
 
-## 🖼️ System Diagram
-The following diagram shows the structure of the system and relationships between modules:
-
-![System Diagram](diagram.png)
-
----
 
 ## ⚙️ Implemented Filters
 - Grayscale Conversion
