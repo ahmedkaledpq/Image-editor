@@ -125,6 +125,22 @@ void rotate270(Image &image) {
         cout<<"image not saved\n";
     }
 }
+void convertToGrayscale(string& input_file,string& output_file) {
+    Image image(input_file);
+    for (int i = 0; i < image.width; ++i) {
+        for (int j = 0; j < image.height; ++j) {
+            unsigned int avg = 0;
+            for (int k = 0; k < 3; ++k) {
+                avg += image(i, j, k);
+            }
+            avg /= 3;
+            image(i, j, 0) = avg;
+            image(i, j, 1) = avg;
+            image(i, j, 2) = avg;
+        }
+    }
+    image.saveImage(output_file);
+}
 
 int main() {
     
@@ -136,7 +152,8 @@ int main() {
       cout << "1. Flip image colors\n";
       cout << "2. Rotate image\n";
       cout << "3. BlackAndWhite\n";
-      cout << "3. Exit\n";
+      cout << "4. grey scale image
+      cout << "7. Exit\n";
       cout << "Your choice: ";
       cin >> choice;
       switch (choice) {
@@ -206,6 +223,13 @@ int main() {
             break;
         }
             return 0;
+        
+        case 4:
+              {
+            string file, newfile;
+            cin >> file >> newfile;
+            convertToGrayscale(file, newfile);
+              }
         case 7:
             cout << "Exiting program.\n";
             return 0;
