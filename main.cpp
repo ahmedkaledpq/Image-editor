@@ -3,6 +3,42 @@
 
 
 using namespace std;
+void flipImage(Image &image, const string &direction) {
+    if(direction == "h") {
+        for(int j = 0; j < image.height; ++j) {
+            for(int i = 0; i < image.width / 2; ++i) {
+                for(int k = 0; k < 3; ++k) {
+                    swap(image(i, j, k), image(image.width - 1 - i, j, k));
+                }
+            }
+        }
+    } else if(direction == "v") {
+        for(int i = 0; i < image.width; ++i) {
+            for(int j = 0; j < image.height / 2; ++j) {
+                for(int k = 0; k < 3; ++k) {
+                    swap(image(i, j, k), image(i, image.height - 1 - j, k));
+                }
+            }
+        }
+    } else {
+        cout << "Error: Unknown flip direction. Use 'h' for horizontal or 'v' for vertical." << endl;
+        return;
+    }
+
+    cout << "If you want to save, enter 1 else 0: ";
+    int save;
+    cin >> save;
+    if(save == 1){
+        string s;
+        cout << "Enter the name of the new image with its extension: ";
+        cin >> s;
+        image.saveImage(s);
+        cout << "Image saved successfully!\n";
+    } else {
+        cout << "Image not saved.\n";
+    }
+}
+
 
 void convertToBlackAndWhite(Image &image, int threshold = 128) {
     for (int i = 0; i < image.width; ++i) {
@@ -152,7 +188,9 @@ int main() {
       cout << "1. Flip image colors\n";
       cout << "2. Rotate image\n";
       cout << "3. BlackAndWhite\n";
-      cout << "4. grey scale image
+      cout << "4. grey scale image \n";
+      cout << "5. flipImage \n";
+
       cout << "7. Exit\n";
       cout << "Your choice: ";
       cin >> choice;
@@ -227,12 +265,33 @@ int main() {
         case 4:
               {
             string file, newfile;
-            cout << "which file you want to make it grey :"
-            cin >> file ;
-            cout << "name the new file :"
+            cout << "which file you want to make it grey :" ;
+            cin >> file  ;
+            cout << "name the new file :" ;
             cin >> newfile;
             convertToGrayscale(file, newfile);
+                            break;
+
               }
+        case 5:
+            {
+                string filename, direction;
+                cout << "Enter image filename: ";
+                cin >> filename;
+                cout << "Enter flip direction (h for horizontal, v for vertical): ";
+                cin >> direction;
+
+                Image img(filename);
+                if (img.imageData) {
+                    flipImage(img, direction);
+                    cout << "Image flipped successfully!\n";
+                } else {
+                    cout << "Failed to load image.\n";
+                }
+                break;
+            }
+
+                
         case 7:
             cout << "Exiting program.\n";
             return 0;
