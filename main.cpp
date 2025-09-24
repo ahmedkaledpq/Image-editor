@@ -227,7 +227,10 @@ int main() {
         case 4:
               {
             string file, newfile;
-            cin >> file >> newfile;
+            cout << "which file you want to make it grey :"
+            cin >> file ;
+            cout << "name the new file :"
+            cin >> newfile;
             convertToGrayscale(file, newfile);
               }
         case 7:
