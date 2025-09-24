@@ -12,7 +12,7 @@
 
 ## 👨‍👩‍👦 Team Members
 - Ahmed Khaled (11410120240027@stud.cu.edu.eg)  20240027
-- [Name 2] (email2@stud.cu.edu.eg)  
+- Seif mohamed (20240269@stud.fci-cu.edu.eg)  20240269
 - [Name 3] (email3@stud.cu.edu.eg)  
 
 ---
