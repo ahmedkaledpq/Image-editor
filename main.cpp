@@ -1,3 +1,8 @@
+//This C++ program is a simple image editor It lets you: Flip images (horizontal/vertical) , Rotate (90°, 180°, 270°) , Convert to black & white , Convert to grayscale , Invert colors (negative), It shows a menu, asks for the image file, applies the chosen operation and lets you save the result with a new name.
+// student 1: seif mohamed , id: 20240269 , filters: invert image colors and rotate image
+// student 2: ahmed tamer , id:20240019 , filters: merge images and grayscale conversion
+// student 3: ahmed khaled , id: 20240027 , filters: blackandwhite image and flip image
+// section: s11
 #include <iostream>
 #include "Image_Class.h"
 
@@ -5,7 +10,7 @@
 using namespace std;
 void flipImage(Image &image, const string &direction) {
     if(direction == "h") {
-        for(int j = 0; j < image.height; ++j) {
+     for(int j = 0; j < image.height; ++j) {
             for(int i = 0; i < image.width / 2; ++i) {
                 for(int k = 0; k < 3; ++k) {
                     swap(image(i, j, k), image(image.width - 1 - i, j, k));
