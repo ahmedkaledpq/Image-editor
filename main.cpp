@@ -190,7 +190,7 @@ int main() {
       cout << "Menu:\n";
       
      
-      cout << "1. Flip image colors\n";
+      cout << "1. Invert image colors\n";
       cout << "2. Rotate image\n";
       cout << "3. BlackAndWhite\n";
       cout << "4. grey scale image \n";
@@ -210,7 +210,7 @@ int main() {
             Image img(filename);
             if (img.imageData) {
                 flipcolor(img);
-                cout << "Image colors flipped successfully!\n";
+                cout << "Image colors inverted successfully!\n";
 
             } else {
                 cout << "Failed to load image.\n";
