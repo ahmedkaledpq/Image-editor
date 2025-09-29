@@ -2,7 +2,7 @@
 // student 1: seif mohamed , id: 20240269 , filters: invert image colors and rotate image
 // student 2: ahmed tamer , id:20240019 , filters: merge images and grayscale conversion
 // student 3: ahmed khaled , id: 20240027 , filters: blackandwhite image and flip image
-// section: s11
+// section: s13
 #include <iostream>
 #include "Image_Class.h"
 
