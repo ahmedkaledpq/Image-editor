@@ -103,11 +103,12 @@ void flipcolor(Image &image) {
     }
 }
 void rotate90(Image &image) {
+    Image rotated(image.height, image.width);
     for (int i = 0; i < image.width; ++i) {
         for (int j = 0; j < image.height; ++j) {
             for (int k = 0; k < 3; ++k) {
-
-                image(j, image.width - 1 - i, k) = image(i, j, k);
+               rotated(image.height - 1 - j, i, k) = image(i, j, k);
+               
             }
         }
     }
@@ -118,18 +119,18 @@ void rotate90(Image &image) {
         string s;
         cout<<"enter the name of the new image with its extension: ";
         cin>>s;
-      image.saveImage(s);
+      rotated.saveImage(s);
     }
     else{
         cout<<"image not saved\n";
     }
 }
 void rotate180(Image &image) {
-    
+    Image rotated = Image(image.width, image.height);
     for (int i = 0; i < image.width; ++i) {
         for (int j = 0; j < image.height; ++j) {
             for (int k = 0; k < 3; ++k) {
-                image(image.width - 1 - i, image.height - 1 - j, k) = image(i, j, k);
+                rotated(image.width - 1 - i, image.height - 1 - j, k) = image(i, j, k);
             }
         }
     }
@@ -141,20 +142,25 @@ void rotate180(Image &image) {
         string s;
         cout<<"enter the name of the new image with its extension: ";
         cin>>s;
-      image.saveImage(s);
+      rotated.saveImage(s);
     }
     else{
         cout<<"image not saved\n";
     }
 }
 void rotate270(Image &image) {
-    for (int i = 0; i < image.height; ++i) {
-        for (int j = 0; j < image.width; ++j) {
+    Image rotated = Image(image.height, image.width);
+    for (int i = 0; i < image.width; ++i) {
+        for (int j = 0; j < image.height; ++j) {
             for (int k = 0; k < 3; ++k) {
-                image(j, image.width - 1 - i, k) = image(i, j, k);
+                
+                
+                 rotated(j, image.width - 1 - i, k) = image(i, j, k);
             }
         }
     }
+    
+    
    
         cout<<"if you wanna save enter 1 else 0: ";
     int save;
@@ -163,7 +169,7 @@ void rotate270(Image &image) {
         string s;
         cout<<"enter the name of the new image with its extension: ";
         cin>>s;
-      image.saveImage(s);
+      rotated.saveImage(s);
     }
     else{
         cout<<"image not saved\n";
