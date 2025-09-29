@@ -186,6 +186,73 @@ void convertToGrayscale(string& input_file,string& output_file) {
     image.saveImage(output_file);
 }
 
+void Merge(Image& img) {
+    string filename;
+    cout << "Enter second image file: ";
+    cin >> filename;
+    Image img2(filename);
+    cout << "Choose merge option:\n";
+    cout << "1. Resize smaller image \n";
+    cout << "2. Merge the common area\n";
+    int choice;
+    cin >> choice;
+
+    if (choice == 1) {
+        int newWidth = max(img.width, img2.width);
+        int newHeight = max(img.height, img2.height);
+        Image newimg1(newWidth, newHeight);
+        Image newimg2(newWidth, newHeight);
+
+        for (int y = 0; y < newHeight; y++) {
+            for (int x = 0; x < newWidth; x++) {
+                int oldX = x * img.width / newWidth;
+                int oldY = y * img.height / newHeight;
+                for (int c = 0; c < 3; c++) {
+                    newimg1(x, y, c) = img(oldX, oldY, c);
+                }
+            }
+        }
+
+        for (int y = 0; y < newHeight; y++) {
+            for (int x = 0; x < newWidth; x++) {
+                int oldX = x * img2.width / newWidth;
+                int oldY = y * img2.height / newHeight;
+                for (int c = 0; c < 3; c++) {
+                    newimg2(x, y, c) = img2(oldX, oldY, c);
+                }
+            }
+        }
+
+        for (int y = 0; y < newHeight; y++) {
+            for (int x = 0; x < newWidth; x++) {
+                for (int c = 0; c < 3; c++) {
+                    newimg1(x, y, c) = (newimg1(x, y, c) + newimg2(x, y, c)) / 2;
+                }
+            }
+        }
+
+        img = newimg1;
+    }
+    else {
+        int newWidth = min(img.width, img2.width);
+        int newHeight = min(img.height, img2.height);
+
+        for (int y = 0; y < newHeight; y++) {
+            for (int x = 0; x < newWidth; x++) {
+                for (int c = 0; c < 3; c++) {
+                    img(x, y, c) = (img(x, y, c) + img2(x, y, c)) / 2;
+                }
+            }
+        }
+    }
+
+    string output;
+    cout << "Enter output filename (with extension): ";
+    cin >> output;
+    img.saveImage(output);
+}
+
+
 int main() {
     
     int choice;
@@ -198,7 +265,7 @@ int main() {
       cout << "3. BlackAndWhite\n";
       cout << "4. grey scale image \n";
       cout << "5. flipImage \n";
-
+      cout << "6. Merge image \n";
       cout << "7. Exit\n";
       cout << "Your choice: ";
       cin >> choice;
@@ -298,7 +365,15 @@ int main() {
                 }
                 break;
             }
-
+        case 6:
+            {
+                string filename;
+                cout << "Enter first image file: ";
+                cin >> filename;
+                Image input(filename);
+                Merge(input);
+                return 0;
+            }
                 
         case 7:
             cout << "Exiting program.\n";
