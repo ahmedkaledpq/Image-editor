@@ -351,6 +351,7 @@ int main() {
             cout << "name the new file :" ;
             cin >> newfile;
             convertToGrayscale(file, newfile);
+            cout << "Image saved successfully!\n";
                             break;
 
               }
@@ -378,6 +379,7 @@ int main() {
                 cin >> filename;
                 Image input(filename);
                 Merge(input);
+                cout << "Image saved successfully!\n";
                 return 0;
             }
                 
