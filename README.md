@@ -33,6 +33,8 @@
 - Merge Images
 - Flip Image colors
 - Rotate Image
+- Blur Images
+- Adding a frame to picture
 
 
 *(More filters will be added for Hero / Beast / Winged Dragon levels.)*  
