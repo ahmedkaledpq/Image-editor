@@ -562,7 +562,76 @@ void Merge(Image& img) {
     cin >> output;
     img.saveImage(output);
 }
+void Darken_Lighten(Image& img) {
+    double percent;
+    int bright;
 
+    cout << "Choose option:\n";
+    cout << "1. Lighten image\n";
+    cout << "2. Darken image\n";
+    cout << "Enter choice: ";
+    cin >> bright;
+
+    cout << "Enter percentage (0 - 100): ";
+    cin >> percent;
+
+    percent = percent / 100.0;
+
+    for (int i = 0; i < img.width; i++) {
+        for (int j = 0; j < img.height; j++) {
+            for (int k = 0; k < 3; k++) {
+                unsigned char px = img(i, j, k);
+                if (bright == 1) {
+                    img(i, j, k) = min(255, int(px + (255 - px) * percent));
+                } else if (bright == 2) {
+                    img(i, j, k) = max(0, int(px * (1 - percent)));
+                }
+            }
+        }
+    }
+}
+void edgeDetection(Image& image) {
+    Image newImg(image.width, image.height);
+
+    for (int i = 0; i < image.width; ++i) {
+        for (int j = 0; j < image.height; ++j) {
+            unsigned int avg = 0;
+            for (int k = 0; k < 3; ++k) {
+                avg += image(i, j, k);
+            }
+            avg /= 3;
+            image(i, j, 0) = avg;
+            image(i, j, 1) = avg;
+            image(i, j, 2) = avg;
+        }
+    }
+
+    for (int i = 1; i < image.width - 1; ++i) {
+        for (int j = 1; j < image.height - 1; ++j) {
+
+            int current = image(i, j, 0);
+            int right = image(i + 1, j, 0);
+            int down = image(i, j + 1, 0);
+
+            int gx = abs(current - right);
+            int gy = abs(current - down);
+
+            int K = sqrt(gx * gx + gy * gy);
+
+            if (K > 30) {
+                newImg(i, j, 0) = 0;
+                newImg(i, j, 1) = 0;
+                newImg(i, j, 2) = 0;
+            } else {
+                newImg(i, j, 0) = 255;
+                newImg(i, j, 1) = 255;
+                newImg(i, j, 2) = 255;
+            }
+        }
+    }
+
+    image = newImg;
+}
 
 int main() {
     
@@ -570,7 +639,6 @@ int main() {
     while(true){
       cout << "Menu:\n";
       
-     
       cout << "1. Invert image colors\n";
       cout << "2. Rotate image\n";
       cout << "3. BlackAndWhite\n";
@@ -580,9 +648,10 @@ int main() {
       cout << "7. Add frame \n";
       cout << "8. Blur image \n";
       cout << "9. Crop Images \n";
-        cout << "10. Resize Image \n";
-
-      cout << "12. Exit\n";
+      cout << "10. Resize Image \n";
+      cout << "11. Darken or Lighten image \n";
+      cout << "12. Edge detect for image \n" ;
+      cout << "13. Exit\n";
       cout << "Your choice: ";
       cin >> choice;
       switch (choice) {
@@ -735,7 +804,7 @@ int main() {
                 }
                 break;
               }
-                      case 9:
+        case 9:
             {
                 string filename;
                 cout << "Enter image filename: ";
@@ -767,8 +836,41 @@ int main() {
                                 return 0;
 
             }
-                
+        case 11 :
+            {
+                string input, output;
+                cout << "Enter input image name: ";
+                cin >> input;
+                Image img(input);
+            
+                cout << "Enter output image name: ";
+                cin >> output;
+            
+                Darken_Lighten(img);
+                img.saveImage(output);
+                cout << "image saved successfully " << "\n" ;
+                return 0;
+            }
         case 12:
+            {
+                string input, output;
+                cout << "Enter input image name: ";
+                cin >> input;
+            
+                cout << "Enter output image name: ";
+                cin >> output;
+            
+                Image img(input);
+                edgeDetection(img);
+            
+                img.saveImage(output);
+            
+                cout << "image saved successfully " << "\n";
+                return 0;
+            }
+
+          
+        case 13:
             cout << "Exiting program.\n";
             return 0;
             
