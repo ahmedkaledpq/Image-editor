@@ -3,7 +3,7 @@
 //Invert colors (negative), It shows a menu, asks for the image file, applies the chosen operation and lets you save the result with a new name.
 // Students details:
 // student 1: seif mohamed , id: 20240269 , filters: invert image colors , rotate image , blur image and add a frame to an image 
-// student 2: ahmed tamer , id:20240019 , filters: merge images and grayscale conversion
+// student 2: ahmed tamer , id:20240019 , filters: merge images , grayscale conversion , lighten or darken image and image edge detection
 // student 3: ahmed khaled , id: 20240027 , filters: blackandwhite image and flip image and crop image and resize image
 // section: s13
 #include <iostream>
