@@ -4,13 +4,59 @@
 // Students details:
 // student 1: seif mohamed , id: 20240269 , filters: invert image colors , rotate image , blur image and add a frame to an image 
 // student 2: ahmed tamer , id:20240019 , filters: merge images and grayscale conversion
-// student 3: ahmed khaled , id: 20240027 , filters: blackandwhite image and flip image
+// student 3: ahmed khaled , id: 20240027 , filters: blackandwhite image and flip image and crop image and resize image
 // section: s13
 #include <iostream>
 #include "Image_Class.h"
 
 
 using namespace std;
+void resizeImage(Image &image) {
+    int newWidth, newHeight;
+
+    cout << "Enter new width: ";
+    cin >> newWidth;
+    cout << "Enter new height: ";
+    cin >> newHeight;
+
+    if (newWidth <= 0 || newHeight <= 0) {
+        cout << "Error: Invalid dimensions!" << endl;
+        return;
+    }
+
+    Image resized(newWidth, newHeight);
+
+  double x_ratio = static_cast<double>(image.width) / newWidth;
+    double y_ratio = static_cast<double>(image.height) / newHeight;
+
+    for (int j = 0; j < newHeight; ++j) {
+        for (int i = 0; i < newWidth; ++i) {
+            int srcX = static_cast<int>(i * x_ratio);
+            int srcY = static_cast<int>(j * y_ratio);
+            for (int k = 0; k < 3; ++k) {
+                resized(i, j, k) = image(srcX, srcY, k);
+            }
+        }
+    }
+
+    cout << "Image resized successfully from " 
+         << image.width << "x" << image.height 
+         << " to " << newWidth << "x" << newHeight << "!\n";
+
+    cout << "If you want to save, enter 1 else 0: ";
+    int save;
+    cin >> save;
+
+    if (save == 1) {
+        string filename;
+        cout << "Enter the name of the new image with its extension: ";
+        cin >> filename;
+        resized.saveImage(filename);
+        cout << "Image saved successfully!\n";
+    } else {
+        cout << "Image not saved.\n";
+    }
+}
 void cropImage(Image &image) {
     int x, y, nWidth, nHeight;
 
@@ -534,6 +580,7 @@ int main() {
       cout << "7. Add frame \n";
       cout << "8. Blur image \n";
       cout << "9. Crop Images \n";
+        cout << "10. Resize Image \n";
 
       cout << "12. Exit\n";
       cout << "Your choice: ";
@@ -697,6 +744,22 @@ int main() {
                 Image img(filename);
                 if (img.imageData) {
                     cropImage(img);
+                } else {
+                    cout << "Failed to load image.\n";
+                }
+                break;
+                                return 0;
+
+            }
+        case 10:
+            {
+                string filename;
+                cout << "Enter image filename: ";
+                cin >> filename;
+
+                Image img(filename);
+                if (img.imageData) {
+                    resizeImage(img);
                 } else {
                     cout << "Failed to load image.\n";
                 }
