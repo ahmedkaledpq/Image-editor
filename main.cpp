@@ -1,8 +1,8 @@
 //This C++ program is a simple image editor It lets you: 
-//Flip images (horizontal/vertical) , Rotate (90°, 180°, 270°) , Convert to black & white , Convert to grayscale ,
+//Flip images (horizontal/vertical) , Rotate (90°, 180°, 270°) , Convert to black & white , Convert to grayscale , Add a frame to an image , Blur images
 //Invert colors (negative), It shows a menu, asks for the image file, applies the chosen operation and lets you save the result with a new name.
 // Students details:
-// student 1: seif mohamed , id: 20240269 , filters: invert image colors and rotate image
+// student 1: seif mohamed , id: 20240269 , filters: invert image colors , rotate image , blur image and add a frame to an image 
 // student 2: ahmed tamer , id:20240019 , filters: merge images and grayscale conversion
 // student 3: ahmed khaled , id: 20240027 , filters: blackandwhite image and flip image
 // section: s13
@@ -11,6 +11,221 @@
 
 
 using namespace std;
+void blurImage(Image &image) {
+   
+    Image blurred(image.width, image.height);
+
+    
+    int r;
+    cout << "Enter blur radius between 2 and 10: ";
+    cin >> r;
+    if (r < 2 || r > 10) {
+        cout << "Invalid radius. Setting to default value of 5.\n";
+        r = 5;
+    }
+    
+    for (int x = 0; x < image.width; ++x) {
+        for (int y = 0; y < image.height; ++y) {
+            int sum_r = 0, sum_g = 0, sum_b = 0;
+            int count = 0;
+
+        
+            for (int i = -r; i <= r; ++i) {
+                for (int j = -r; j <= r; ++j) {
+                    int nx = x + i;
+                    int ny = y + j;
+
+                    if (nx < 0 || nx >= image.width || ny < 0 || ny >= image.height)
+                        continue;
+                    
+                   
+                    sum_r += image(nx, ny, 0);
+                    sum_g += image(nx, ny, 1);
+                    sum_b += image(nx, ny, 2);
+                    count++;
+                }
+            }
+
+           
+            blurred(x, y, 0) = sum_r / count;
+            blurred(x, y, 1) = sum_g / count;
+            blurred(x, y, 2) = sum_b / count;
+        }
+    }
+
+    
+    for (int x = 0; x < image.width; ++x) {
+        for (int y = 0; y < image.height; ++y) {
+            for (int k = 0; k < 3; ++k) {
+                image(x, y, k) = blurred(x, y, k);
+            }
+        }
+    }
+
+    cout << "If you want to save, enter 1 else 0: ";
+    int save;
+    cin >> save;
+    if (save == 1) {
+        string s;
+        cout << "Enter the name of the new image with its extension: ";
+        cin >> s;
+        image.saveImage(s);
+        cout << "Image saved successfully!\n";
+    } else {
+        cout << "Image not saved.\n";
+    }
+}
+void addDecoratedFrame(Image &image) {
+   
+         
+    for (int i = 0; i < image.width; ++i) {
+        for (int j = 0; j < 10; ++j) {
+            for (int k = 0; k < 3; ++k) {
+                image(i, j, k) = (255, 0, 0); 
+                 
+            }
+           
+        }
+    }
+    
+    
+    for (int i = 0; i < image.width; ++i) {
+        for (int j = image.height - 10; j < image.height; ++j) {
+            for (int k = 0; k < 3; ++k) {
+                image(i, j, k) = (255, 0, 0); 
+                 
+            }
+           
+        }
+    }
+    
+    
+    for (int i = 0; i < 10 ; ++i) {
+        for (int j = 0; j < image.height; ++j) {
+            for (int k = 0; k < 3; ++k) {
+                image(i, j, k) = (255, 0, 0); 
+                 
+            }
+          
+        }
+    }
+    
+    
+    for (int i = image.width - 10; i < image.width; ++i) {
+        for (int j = 0; j < image.height; ++j) {
+            for (int k = 0; k < 3; ++k) {
+                image(i, j, k) = (255, 0, 0); 
+                 
+            }
+        }
+    }
+        
+
+for (int i = 10; i < image.width - 10; ++i) {
+    for (int j = 10; j < 15; ++j) {
+        for (int k = 0; k < 3; ++k) {
+            image(i, j, k) = 255; 
+        }
+    }
+}
+
+for (int i = 10; i < image.width - 10; ++i) {
+    for (int j = image.height - 15; j < image.height - 10; ++j) {
+        for (int k = 0; k < 3; ++k) {
+            image(i, j, k) = 255; 
+        }
+    }
+}
+
+for (int i = 10; i < 15; ++i) {
+    for (int j = 10; j < image.height - 10; ++j) {
+        for (int k = 0; k < 3; ++k) {
+            image(i, j, k) = 255;
+        }
+    }
+}
+
+for (int i = image.width - 15; i < image.width - 10; ++i) {
+    for (int j = 10; j < image.height - 10; ++j) {
+        for (int k = 0; k < 3; ++k) {
+            image(i, j, k) = 255;
+        }
+    }
+}
+
+    
+    cout << "If you want to save, enter 1 else 0: ";
+    int save;
+    cin >> save;
+    if (save == 1) {
+        string s;
+        cout << "Enter the name of the new image with its extension: ";
+        cin >> s;
+        image.saveImage(s);
+        cout << "Image saved successfully!\n";
+    } else {
+        cout << "Image not saved.\n";
+    }
+}
+void addSimpleFrame(Image &image) {
+    
+    
+    
+    for (int i = 0; i < image.width; ++i) {
+        for (int j = 0; j < 10; ++j) {
+            for (int k = 0; k < 3; ++k) {
+                image(i, j, k) = (255, 0, 0); 
+                 
+            }
+           
+        }
+    }
+    
+    
+    for (int i = 0; i < image.width; ++i) {
+        for (int j = image.height - 10; j < image.height; ++j) {
+            for (int k = 0; k < 3; ++k) {
+                image(i, j, k) = (255, 0, 0); 
+                 
+            }
+           
+        }
+    }
+    
+    
+    for (int i = 0; i < 10 ; ++i) {
+        for (int j = 0; j < image.height; ++j) {
+            for (int k = 0; k < 3; ++k) {
+                image(i, j, k) = (255, 0, 0); 
+                 
+            }
+          
+        }
+    }
+    
+    
+    for (int i = image.width - 10; i < image.width; ++i) {
+        for (int j = 0; j < image.height; ++j) {
+            for (int k = 0; k < 3; ++k) {
+                image(i, j, k) = (255, 0, 0); 
+                 
+            }
+        }
+    }
+    
+    cout << "If you want to save, enter 1 else 0: ";
+    int save;
+    cin >> save;
+    if (save == 1) {
+        string s;
+        cout << "Enter the name of the new image with its extension: ";
+        cin >> s;
+        image.saveImage(s);
+        cout << "Image saved successfully!\n";
+    } else {
+        cout << "Image not saved.\n";
+    }
+}
 void flipImage(Image &image, const string &direction) {
     if(direction == "h") {
      for(int j = 0; j < image.height; ++j) {
@@ -272,7 +487,9 @@ int main() {
       cout << "4. grey scale image \n";
       cout << "5. flipImage \n";
       cout << "6. Merge image \n";
-      cout << "7. Exit\n";
+      cout << "7. Add frame \n";
+      cout << "8. Blur image \n";
+      cout << "9. Exit\n";
       cout << "Your choice: ";
       cin >> choice;
       switch (choice) {
@@ -382,8 +599,51 @@ int main() {
                 cout << "Image saved successfully!\n";
                 return 0;
             }
-                
         case 7:
+              {    
+                  string filename;
+                cout << "Enter image filename: ";
+                cin >> filename;
+
+                Image img(filename);
+                if (img.imageData) {
+                    cout << "Select border type:\n";
+                    cout << "1. Simple frame\n";
+                    cout << "2. Decorated frame\n";
+                    int borderChoice;
+                    cin >> borderChoice;
+                    
+                    if (borderChoice == 1) {
+                        addSimpleFrame(img);
+                    } else if (borderChoice == 2) {
+                        addDecoratedFrame(img);
+                    } else {
+                        cout << "Invalid choice, applying simple frame by default.\n";
+                        addSimpleFrame(img);
+                    }
+                    cout << "Border added successfully!\n";
+                } else {
+                    cout << "Failed to load image.\n";
+                }
+                break;
+              }
+        case 8:
+              {
+                    string filename;
+                cout << "Enter image filename: ";
+                cin >> filename;
+
+                Image img(filename);
+                if (img.imageData) {
+                    blurImage(img);
+                    cout << "Image blurred successfully!\n";
+                } else {
+                    cout << "Failed to load image.\n";
+                }
+                break;
+              }
+                
+        case 9:
             cout << "Exiting program.\n";
             return 0;
             
