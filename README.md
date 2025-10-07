@@ -35,8 +35,8 @@
 - Rotate Image
 - Blur Images
 - Adding a frame to picture
-
-
+- Detect image edges
+- Darken and Lighten Image
 *(More filters will be added for Hero / Beast / Winged Dragon levels.)*  
 
 ---
