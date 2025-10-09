@@ -1,4 +1,4 @@
-//This C++ program is a simple image editor It lets you: 
+//this C++ program is a simple image editor It lets you: 
 //Flip images (horizontal/vertical) , Rotate (90°, 180°, 270°) , Convert to black & white , Convert to grayscale , Add a frame to an image , Blur images
 //Invert colors (negative), It shows a menu, asks for the image file, applies the chosen operation and lets you save the result with a new name.
 // Students details:
@@ -688,7 +688,7 @@ int main() {
             }
             break;
         }
-            return 0;
+            break;
         
         case 4:
               {
@@ -727,7 +727,7 @@ int main() {
                 Image input(filename);
                 Merge(input);
                 cout << "Image saved successfully!\n";
-                return 0;
+                break;
             }
         case 7:
               {    
@@ -785,7 +785,6 @@ int main() {
                     cout << "Failed to load image.\n";
                 }
                 break;
-                                return 0;
 
             }
         case 10:
@@ -801,7 +800,7 @@ int main() {
                     cout << "Failed to load image.\n";
                 }
                 break;
-                                return 0;
+                                
 
             }
         case 11 :
@@ -817,7 +816,7 @@ int main() {
                 Darken_Lighten(img);
                 img.saveImage(output);
                 cout << "image saved successfully " << "\n" ;
-                return 0;
+                break;
             }
         case 12:
             {
@@ -832,12 +831,10 @@ int main() {
                 edgeDetection(img);
             
                 img.saveImage(output);
-            
-                cout << "image saved successfully " << "\n";
-                return 0;
-            }
+            cout << "image saved successfully " << "\n";
+            break;
+        }
 
-          
         case 13:
             cout << "Exiting program.\n";
             return 0;
