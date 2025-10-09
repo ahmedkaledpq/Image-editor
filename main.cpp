@@ -7,6 +7,7 @@
 // student 3: ahmed khaled , id: 20240027 , filters: blackandwhite image and flip image and crop image and resize image
 // section: s13
 // Shared document link: https://1drv.ms/w/c/8f6cc3ab3a487568/EQszF77GL8hLj5Npk8GoqW4Bk2u6iFVOO_sFGn9d4bHe0w?e=UOWBpQ
+// Video demo link: https://drive.google.com/file/d/188uT-iMMmlWtb7gf9VOSnMWZzSpOGR3k/view?usp=drive_link
 #include <iostream>
 #include "Image_Class.h"
 
