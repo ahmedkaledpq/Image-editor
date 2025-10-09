@@ -166,83 +166,51 @@ void blurImage(Image &image) {
     }
 }
 void addDecoratedFrame(Image &image) {
+    
+    for (int i = 0; i < image.width; i++) {
+        for (int j = 0; j < image.height; j++) {
+            if (i < 10 || i >= image.width - 10 || j < 10 || j >= image.height - 10) {
+                for (int k=0; k<3; ++k){
+                    image(i, j, k) = 255; 
+                }
+            }
+        }
+    }
+
+    
    
-         
-    for (int i = 0; i < image.width; ++i) {
-        for (int j = 0; j < 10; ++j) {
+    for (int i = 10; i < image.width - 10; i++) {
+        for (int j = 10; j < image.height - 10; j++) {
+            if (i < 15 || i >= image.width - 15 || j < 15 || j >= image.height - 15) {
+                for (int k=0; k<3; ++k){
+                    image(i, j, k) = 0; 
+                }
+            }
+        }
+    }
+    
+    
+    for (int i = 15; i < 25; i++) {
+        for (int j = 15; j < 25; j++) {
             for (int k = 0; k < 3; ++k) {
-                image(i, j, k) = (255, 0, 0); 
-                 
+            
+                image(i, j, k) = 0;
+                
+            
+            image(image.width - 1 - i, j, k) = 0;
+           
+
+           
+            image(i, image.height - 1 - j, k) = 0;
+           
+
+            
+            image(image.width - 1 - i, image.height - 1 - j, k) = 0;
             }
            
         }
     }
     
-    
-    for (int i = 0; i < image.width; ++i) {
-        for (int j = image.height - 10; j < image.height; ++j) {
-            for (int k = 0; k < 3; ++k) {
-                image(i, j, k) = (255, 0, 0); 
-                 
-            }
-           
-        }
-    }
-    
-    
-    for (int i = 0; i < 10 ; ++i) {
-        for (int j = 0; j < image.height; ++j) {
-            for (int k = 0; k < 3; ++k) {
-                image(i, j, k) = (255, 0, 0); 
-                 
-            }
-          
-        }
-    }
-    
-    
-    for (int i = image.width - 10; i < image.width; ++i) {
-        for (int j = 0; j < image.height; ++j) {
-            for (int k = 0; k < 3; ++k) {
-                image(i, j, k) = (255, 0, 0); 
-                 
-            }
-        }
-    }
-        
-
-for (int i = 10; i < image.width - 10; ++i) {
-    for (int j = 10; j < 15; ++j) {
-        for (int k = 0; k < 3; ++k) {
-            image(i, j, k) = 255; 
-        }
-    }
-}
-
-for (int i = 10; i < image.width - 10; ++i) {
-    for (int j = image.height - 15; j < image.height - 10; ++j) {
-        for (int k = 0; k < 3; ++k) {
-            image(i, j, k) = 255; 
-        }
-    }
-}
-
-for (int i = 10; i < 15; ++i) {
-    for (int j = 10; j < image.height - 10; ++j) {
-        for (int k = 0; k < 3; ++k) {
-            image(i, j, k) = 255;
-        }
-    }
-}
-
-for (int i = image.width - 15; i < image.width - 10; ++i) {
-    for (int j = 10; j < image.height - 10; ++j) {
-        for (int k = 0; k < 3; ++k) {
-            image(i, j, k) = 255;
-        }
-    }
-}
-
     
     cout << "If you want to save, enter 1 else 0: ";
     int save;
