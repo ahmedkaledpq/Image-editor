@@ -59,49 +59,7 @@ void resizeImage(Image &image) {
         cout << "Image not saved.\n";
     }
 }
-void cropImage(Image &image) {
-    int x, y, nWidth, nHeight;
 
-    cout << "Enter starting x (left): ";
-    cin >> x;
-    cout << "Enter starting y (top): ";
-    cin >> y;
-    cout << "Enter new width: ";
-    cin >> nWidth;
-    cout << "Enter new height: ";
-    cin >> nHeight;
-
-    if (x < 0 || y < 0 || x + nWidth > image.width || y + nHeight > image.height) {
-        cout << "Error: Crop dimensions exceed image boundaries!" << endl;
-        return;
-    }
-
-    Image cropped(nWidth, nHeight);
-
-    for (int j = 0; j < nHeight; ++j) {
-        for (int i = 0; i < nWidth; ++i) {
-            for (int k = 0; k < 3; ++k) { 
-                cropped(i, j, k) = image(x + i, y + j, k);
-            }
-        }
-    }
-
-    cout << "Cropping done successfully!\n";
-
-    cout << "If you want to save, enter 1 else 0: ";
-    int save;
-    cin >> save;
-
-    if (save == 1) {
-        string filename;
-        cout << "Enter the name of the new image with its extension: ";
-        cin >> filename;
-        cropped.saveImage(filename);
-        cout << "Image saved successfully!\n";
-    } else {
-        cout << "Image not saved.\n";
-    }
-}
 
 void blurImage(Image &image) {
    
@@ -774,21 +732,7 @@ int main() {
                 }
                 break;
               }
-        case 9:
-            {
-                string filename;
-                cout << "Enter image filename: ";
-                cin >> filename;
-
-                Image img(filename);
-                if (img.imageData) {
-                    cropImage(img);
-                } else {
-                    cout << "Failed to load image.\n";
-                }
-                break;
-
-            }
+      
         case 10:
             {
                 string filename;
